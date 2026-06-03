@@ -311,6 +311,24 @@ export default function App() {
   const [copied,setCopied]         = useState("");
   const transitioning              = useRef(false);
 
+  useEffect(() => {
+    const audio = new Audio("/music/eight.mp3");
+    audio.loop = true;
+
+    const startMusic = () => {
+      audio.play().catch(() => {});
+      document.removeEventListener("click", startMusic);
+    };
+
+    document.addEventListener("click", startMusic);
+
+    return () => {
+      audio.pause();
+      document.removeEventListener("click", startMusic);
+    };
+  }, []);
+
+
   const handleOpen=()=>{setCoverPhase("blooming");setTimeout(()=>setOpened(true),800);};
   const tabOrder=TABS.map(t=>t.id);
   const changeTab=(newTab)=>{
@@ -341,19 +359,23 @@ export default function App() {
 
   // TURUT MENGUNDANG DATA
   const turutPria = [
-    "Keluarga Besar Bpk. Hj. Jenal Abidin",
-    "Rekan-rekan di Purwakarta",
-    "Seluruh Kerabat & Tetangga Purwakarta",
-  ];
+  "Keluarga Besar Bpk. Hj. Jenal Abidin",
+  "Hj. Mansyur (Uwa)",
+  "Ust. Asep (Mamang)",
+  "Ust. Abdul Muhaemin (Raka)",
+  "Aa Anan (Raka)",
+  "Keluarga Besar Hj. Tajudin (Sukahaji)",
+  "Keluarga Besar Hj. Abdul Rosyid (Ciganea)",
+];
   const turutWanita = [
-    "Ust. Abah Kiki Wijana",
-    "Ust. Asep",
-    "RW — Bpk. Ujang Karyama (RW 11)",
-    "RT — Bpk. Deden (RT 01)",
-    "Bpk. Ikin",
-    "Bpk. Radi",
-    "Bpk. Maman",
-  ];
+  "Ust. Abah Kiki Wijana",
+  "Ust. Asep",
+  "RW Ujang Karyama (RW 11)",
+  "RT Deden (RT 01)",
+  "Bpk. Ikin",
+  "Bpk. Radi",
+  "Bpk. Maman",
+];
 
   if(!opened) {
     const blooming=coverPhase==="blooming";
@@ -613,24 +635,6 @@ Ucapan: `)}
 
       </div>
 
-      {/* Bottom Nav */}
-      <div style={{display:"flex",background:CREAM_DARK,borderTop:`1px solid ${GOLD_LIGHT}55`,boxShadow:"0 -4px 20px #00000015",zIndex:100,minHeight:62}}>
-        {vtabs.map(t=>{
-          const active=t.id===tab;
-          return (
-            <button key={t.id} onClick={()=>changeTab(t.id)} style={{
-              flex:1,border:"none",padding:"5px 3px",
-              background:active?GOLD_DARK:"transparent",
-              borderRadius:active?11:0,margin:active?"4px 2px":0,
-              cursor:"pointer",display:"flex",flexDirection:"column",
-              alignItems:"center",gap:2,transition:"all 0.25s ease"
-            }}>
-              <span style={{fontSize:14}}>{t.icon}</span>
-              <span style={{...PP,fontSize:9,fontWeight:active?700:400,color:active?"#fff":"#9B7A3A"}}>{t.label}</span>
-            </button>
-          );
-        })}
-      </div>
     </div>
   );
 }

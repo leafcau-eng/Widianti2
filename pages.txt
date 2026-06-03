@@ -1,0 +1,279 @@
+  if(!opened) {
+    const blooming=coverPhase==="blooming";
+    return (
+      <div style={{width:"100%",maxWidth:420,margin:"0 auto",height:"100vh",position:"relative",overflow:"hidden",background:CREAM}}>
+        <style>{CSS}</style>
+        <WatercolorBg/><GoldParticles/><Petals/>
+        <Flowers animate={true}/><GoldBorderFrame animate={true}/>
+        <div style={{
+          position:"relative",zIndex:20,display:"flex",flexDirection:"column",
+          alignItems:"center",justifyContent:"center",
+          height:"100%",padding:"0 44px",textAlign:"center",
+          transition:"opacity 0.8s ease,transform 0.8s ease",
+          opacity:blooming?0:1,transform:blooming?"scale(1.05)":"scale(1)"
+        }}>
+          <p style={{...PP,fontSize:10,letterSpacing:5,color:"#9B7A3A",textTransform:"uppercase",marginBottom:20,animation:"fadeIn 1s ease 0.8s both"}}>THE WEDDING OF</p>
+          <div style={{...SF,fontSize:68,lineHeight:1.05,animation:"fadeUp 1s cubic-bezier(0.34,1.2,0.64,1) 1s both"}}>Balhaz</div>
+          <div style={{...PP,fontSize:11,color:GOLD_DARK,letterSpacing:3,margin:"6px 0",fontStyle:"italic",animation:"fadeIn 0.8s ease 1.4s both"}}>— and —</div>
+          <div style={{...SF,fontSize:60,lineHeight:1.05,marginBottom:28,animation:"fadeUp 1s cubic-bezier(0.34,1.2,0.64,1) 1.2s both"}}>Widianti</div>
+          <div style={{width:70,height:1,background:`linear-gradient(90deg,transparent,${GOLD},transparent)`,marginBottom:20,animation:"fadeIn 1s ease 1.8s both"}}/>
+          <div style={{animation:"fadeUp 0.8s ease 2s both"}}>
+            <p style={{...PP,fontSize:11,color:"#7A6040",marginBottom:3}}>Kepada Yth; Bapak/Ibu/Saudara/i</p>
+            <p style={{...PP,fontSize:15,color:GOLD_DARK,fontWeight:700,marginBottom:30}}>[Nama Tamu]</p>
+            <button style={{...GB,fontSize:14,padding:"13px 38px",letterSpacing:1}} onClick={handleOpen}>Open Invitation</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{width:"100%",maxWidth:420,margin:"0 auto",height:"100vh",display:"flex",flexDirection:"column",background:CREAM,overflow:"hidden"}}>
+      <style>{CSS}</style>
+      <div style={{flex:1,overflowY:"auto",overflowX:"hidden"}}>
+
+        {displayTab==="opening"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <p style={{...PP,fontSize:10,letterSpacing:4,color:"#9B7A3A",textTransform:"uppercase",marginBottom:14}}>THE WEDDING OF</p>
+          <div style={{...SF,fontSize:62,lineHeight:1.05}}>Balhaz</div>
+          <div style={{...PP,fontSize:11,color:GOLD_DARK,letterSpacing:3,margin:"5px 0",fontStyle:"italic"}}>— and —</div>
+          <div style={{...SF,fontSize:54,lineHeight:1.05,marginBottom:22}}>Widianti</div>
+          {divider}
+          <p style={{...PP,fontSize:11,color:"#7A6040"}}>Kepada Yth; Bapak/Ibu/Saudara/i</p>
+          <p style={{...PP,fontSize:14,color:GOLD_DARK,fontWeight:700,marginTop:5}}>[Nama Tamu]</p>
+        </div></Page>}
+
+        {displayTab==="quotes"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <Monogram letters={["B","W"]}/>
+          <div style={{...PF,fontSize:24,color:GOLD_DARK,fontWeight:700,marginBottom:3,fontStyle:"italic"}}>Balhaz & Widianti</div>
+          <p style={{...PP,fontSize:12,color:"#9B7A3A",marginBottom:18}}>Kamis, 2 Juli 2026</p>
+          {divider}
+          <p style={{...PP,fontSize:12,color:"#4A3520",lineHeight:1.9,fontStyle:"italic"}}>
+            "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+          </p>
+          <p style={{...PP,fontSize:11,color:GOLD_DARK,marginTop:12,fontWeight:600}}>— QS. Ar-Rum : 21</p>
+        </div></Page>}
+
+        {displayTab==="mempelai"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <Monogram letters={["B","W"]}/>
+          <p style={{...PP,fontSize:10.5,color:"#7A6040",lineHeight:1.7,marginBottom:14}}>
+            Bismillahirrahmanirrahim<br/>Dengan memohon Rahmat dan Ridho Allah Subhanahu wa ta'ala kami bermaksud menyelenggarakan Pernikahan kami
+          </p>
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:2}}>Balhaz</div>
+          <p style={{...PP,fontSize:11,color:"#4A3520",fontWeight:600}}>Balhaz Ainun Naim</p>
+          <p style={{...PP,fontSize:10.5,color:"#7A6040"}}>Putra Bpk. Hj. Jenal Abidin</p>
+          <p style={{...PP,fontSize:10.5,color:"#7A6040"}}>& Ibu Hj. Pupung Muflihat (Alm)</p>
+          <p style={{...PP,fontSize:10,color:"#9B7A3A",marginBottom:2}}>Anak ke-3 dari 4 bersaudara</p>
+          {divider}
+          <p style={{...PF,fontSize:14,color:GOLD_DARK,fontStyle:"italic",marginBottom:11}}>dengan</p>
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:2}}>Widianti</div>
+          <p style={{...PP,fontSize:11,color:"#4A3520",fontWeight:600}}>Widiyanti</p>
+          <p style={{...PP,fontSize:10.5,color:"#7A6040"}}>Putri Bpk. Suparman & Ibu Maryati</p>
+          <p style={{...PP,fontSize:10,color:"#9B7A3A"}}>Anak ke-3 dari 5 bersaudara</p>
+        </div></Page>}
+
+        {displayTab==="acara"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:6}}>Akad Nikah</div>
+          <p style={{...PP,fontSize:12,color:"#4A3520"}}>Kamis, 2 Juli 2026</p>
+          <p style={{...PP,fontSize:12,color:"#4A3520"}}>Pukul : 08.00 WIB - selesai</p>
+          <p style={{...PP,fontSize:11,color:"#7A6040",lineHeight:1.6,marginBottom:6}}>Kp. Palasari RT 01/RW 11<br/>Desa Cirawa Mekar, Kec. Cipatat<br/>Bandung Barat</p>
+          {divider}
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:6}}>Resepsi</div>
+          <p style={{...PP,fontSize:12,color:"#4A3520"}}>Kamis, 2 Juli 2026</p>
+          <p style={{...PP,fontSize:12,color:"#4A3520"}}>Pukul : 09.00 WIB - selesai</p>
+          <p style={{...PP,fontSize:11,color:"#7A6040",lineHeight:1.6}}>Kp. Palasari RT 01/RW 11<br/>Desa Cirawa Mekar, Kec. Cipatat<br/>Bandung Barat</p>
+          <Countdown target="2026-07-02T08:00:00"/>
+        </div></Page>}
+
+        {displayTab==="maps"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:12}}>Lokasi</div>
+          <div style={{borderRadius:14,overflow:"hidden",border:`1.5px solid ${GOLD_LIGHT}88`,marginBottom:14,boxShadow:"0 4px 16px #00000020"}}>
+            <iframe src="https://maps.google.com/maps?q=Kp+Palasari+Cipatat+Bandung+Barat&output=embed"
+              width="100%" height="210" style={{border:0,display:"block"}} allowFullScreen loading="lazy" title="Lokasi"/>
+          </div>
+          <p style={{...PP,fontSize:11,color:"#7A6040",lineHeight:1.7,marginBottom:14}}>Kp. Palasari RT 01/RW 11<br/>Desa Cirawa Mekar, Kec. Cipatat<br/>Bandung Barat, Jawa Barat</p>
+          <a href="https://maps.app.goo.gl/3M937n1PRWyTUMcF9" target="_blank" rel="noopener noreferrer"
+            style={{...GB,display:"inline-block",textDecoration:"none"}}>📍 Buka Google Maps</a>
+        </div></Page>}
+
+        {/* ── RSVP via WhatsApp ── */}
+        {displayTab==="rsvp"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:6}}>RSVP</div>
+          <p style={{...PP,fontSize:11,color:"#7A6040",lineHeight:1.7,marginBottom:22}}>
+            Konfirmasi kehadiran Anda langsung via WhatsApp kepada kami. Kami sangat menantikan kehadiran Bapak/Ibu/Saudara/i 🙏
+          </p>
+
+          {/* WA Button utama */}
+          <button onClick={()=>openWA(`Assalamu'alaikum, saya konfirmasi kehadiran untuk pernikahan Balhaz & Widianti pada Kamis, 2 Juli 2026.
+
+Nama: 
+Jumlah Hadir: 
+Ucapan: `)}
+            style={{
+              display:"flex",alignItems:"center",justifyContent:"center",gap:10,
+              width:"100%",padding:"14px 20px",
+              background:"#25D366",color:"#fff",border:"none",
+              borderRadius:14,cursor:"pointer",
+              fontFamily:"'Poppins',sans-serif",fontSize:13,fontWeight:600,
+              boxShadow:"0 4px 15px #25D36640",
+              animation:"waPulse 2.5s ease-in-out infinite",
+              marginBottom:12
+            }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Konfirmasi via WhatsApp
+          </button>
+
+          {/* Quick action buttons */}
+          <div style={{display:"flex",gap:8,marginBottom:20}}>
+            <button onClick={()=>openWA(`Assalamu'alaikum, saya *Hadir* di pernikahan Balhaz & Widianti 2 Juli 2026 🎉
+
+Nama: 
+Jumlah tamu: `)}
+              style={{
+                flex:1,padding:"10px 8px",border:`1.5px solid ${GOLD_LIGHT}`,
+                borderRadius:12,background:"#FFFDF8",cursor:"pointer",
+                fontFamily:"'Poppins',sans-serif",fontSize:11,fontWeight:600,color:GOLD_DARK
+              }}>✅ Hadir</button>
+            <button onClick={()=>openWA(`Assalamu'alaikum, mohon maaf saya *Tidak Bisa Hadir* di pernikahan Balhaz & Widianti 2 Juli 2026 🙏
+
+Nama: 
+Ucapan: `)}
+              style={{
+                flex:1,padding:"10px 8px",border:`1.5px solid ${GOLD_LIGHT}`,
+                borderRadius:12,background:"#FFFDF8",cursor:"pointer",
+                fontFamily:"'Poppins',sans-serif",fontSize:11,fontWeight:600,color:"#9B7A3A"
+              }}>❌ Tidak Hadir</button>
+          </div>
+
+          {divider}
+
+          {/* Ucapan list */}
+          <div style={{...PP,fontSize:11,color:GOLD_DARK,fontWeight:600,marginBottom:10,textAlign:"left"}}>💬 Ucapan Tamu</div>
+          {comments.map((c,i)=>(
+            <div key={i} style={{background:"#FFFDF8",borderRadius:12,padding:"9px 13px",marginBottom:9,border:`1px solid ${GOLD_LIGHT}44`,boxShadow:"0 2px 8px #00000010",textAlign:"left"}}>
+              <div style={{display:"flex",gap:7,alignItems:"center",marginBottom:3}}>
+                <div style={{width:28,height:28,borderRadius:"50%",background:GOLD_DARK,color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:700}}>{c.name[0]}</div>
+                <span style={{...PP,fontSize:12,fontWeight:600,color:"#4A3520"}}>{c.name} </span>
+                <span style={{...PP,fontSize:10,background:GOLD_DARK,color:"#fff",borderRadius:20,padding:"1px 7px"}}>{c.status}</span>
+              </div>
+              <p style={{...PP,fontSize:11,color:"#7A6040",margin:0}}>{c.msg}</p>
+              <p style={{...PP,fontSize:10,color:"#B0936A",marginTop:3}}>{c.time}</p>
+            </div>
+          ))}
+        </div></Page>}
+
+        {displayTab==="gift"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:7}}>Tanda Kasih</div>
+          <p style={{...PP,fontSize:11,color:"#7A6040",lineHeight:1.7,marginBottom:14}}>
+            Terima kasih telah menambah kegembiraan pernikahan kami dengan kehadiran dan hadiah indah Anda.
+          </p>
+          {[
+            {lb:"DANA",name:"Widianti",num:"083843197567",disp:"0838 4319 7567",k:"d1"},
+            {lb:"DANA",name:"Balhaz Ainun Naim",num:"083816937951",disp:"0838 1693 7951",k:"d2"},
+            {lb:"BRI",name:"Balhaz Ainun Naim",num:"4356010240305390",disp:"4356 0102 4030 539",k:"bri"},
+          ].map(a=>(
+            <div key={a.k} style={{background:"#FFFDF8",borderRadius:12,padding:"11px 14px",border:`1px solid ${GOLD_LIGHT}66`,marginBottom:9,textAlign:"left"}}>
+              <div style={{...PP,fontSize:14,fontWeight:700,color:"#4A3520",marginBottom:3}}>{a.disp}</div>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <div>
+                  <span style={{...PP,fontSize:11,color:GOLD_DARK,fontWeight:600}}>{a.lb}</span>
+                  <span style={{...PP,fontSize:11,color:"#7A6040"}}> : {a.name}</span>
+                </div>
+                <button style={{...GB,padding:"5px 13px",fontSize:11}} onClick={()=>copy(a.num,a.k)}>
+                  {copied===a.k?"✓ Disalin":"Salin"}
+                </button>
+              </div>
+            </div>
+          ))}
+          {divider}
+          <div style={{...PF,fontSize:16,color:GOLD_DARK,fontWeight:700,marginBottom:7,fontStyle:"italic"}}>Kirim Kado</div>
+          <p style={{...PP,fontSize:11,color:"#7A6040",lineHeight:1.7,marginBottom:11}}>Kp. Palasari RT 01/RW 11<br/>Desa Cirawa Mekar, Kec. Cipatat<br/>Bandung Barat, Jawa Barat</p>
+          <button style={GB} onClick={()=>copy("Kp. Palasari RT 01 RW 11 Desa Cirawa Mekar Kec. Cipatat Bandung Barat Jawa Barat","al")}>
+            {copied==="al"?"✓ Disalin":"Salin Alamat"}
+          </button>
+        </div></Page>}
+
+        {/* ── TURUT MENGUNDANG ── */}
+        {displayTab==="mengundang"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <span style={{...PP,fontSize:18,fontWeight:900,color:GOLD_DARK,letterSpacing:4,textTransform:"uppercase"}}>TURUT</span>
+          <div style={{...SF,fontSize:44,lineHeight:1.05,marginBottom:20}}>Mengundang</div>
+
+          {/* Pihak Pria */}
+          <div style={{
+            background:"#FFFDF8",borderRadius:14,padding:"14px 16px",
+            border:`1px solid ${GOLD_LIGHT}66`,marginBottom:14,textAlign:"left",
+            boxShadow:"0 2px 10px #00000010"
+          }}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
+              <div style={{width:28,height:28,borderRadius:"50%",background:GOLD_DARK,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14}}>🤵</div>
+              <span style={{...PF,fontSize:14,color:GOLD_DARK,fontWeight:700,fontStyle:"italic"}}>Keluarga Mempelai Pria</span>
+            </div>
+            {turutPria.map((item,i)=>(
+              <div key={i} style={{...PP,fontSize:11,color:"#4A3520",padding:"6px 0",borderBottom:i<turutPria.length-1?`1px solid ${GOLD_LIGHT}22`:"none",display:"flex",alignItems:"center",gap:7}}>
+                <span style={{color:GOLD_DARK,fontSize:10}}>❧</span> {item}
+              </div>
+            ))}
+          </div>
+
+          {/* Pihak Wanita */}
+          <div style={{
+            background:"#FFFDF8",borderRadius:14,padding:"14px 16px",
+            border:`1px solid ${GOLD_LIGHT}66`,textAlign:"left",
+            boxShadow:"0 2px 10px #00000010"
+          }}>
+            <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
+              <div style={{width:28,height:28,borderRadius:"50%",background:GOLD_DARK,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14}}>👰</div>
+              <span style={{...PF,fontSize:14,color:GOLD_DARK,fontWeight:700,fontStyle:"italic"}}>Keluarga Mempelai Wanita</span>
+            </div>
+            {turutWanita.map((item,i)=>(
+              <div key={i} style={{...PP,fontSize:11,color:"#4A3520",padding:"6px 0",borderBottom:i<turutWanita.length-1?`1px solid ${GOLD_LIGHT}22`:"none",display:"flex",alignItems:"center",gap:7}}>
+                <span style={{color:GOLD_DARK,fontSize:10}}>❧</span> {item}
+              </div>
+            ))}
+          </div>
+        </div></Page>}
+
+        {displayTab==="thanks"&&<Page {...pp}><div style={{textAlign:"center"}}>
+          <p style={{...PP,fontSize:11,color:"#7A6040",lineHeight:1.8,marginBottom:13}}>
+            Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan do'a restu kepada kami.
+          </p>
+          <p style={{...PF,fontSize:14,color:GOLD_DARK,fontWeight:600,marginBottom:9,fontStyle:"italic"}}>Salam Hormat Kedua Mempelai</p>
+          <p style={{...PP,fontSize:12,color:"#7A6040",marginBottom:13}}>Kami yang berbahagia</p>
+          <div style={{display:"flex",justifyContent:"space-around",marginBottom:18}}>
+            <div>
+              <p style={{...PP,fontSize:10,color:"#9B7A3A",textDecoration:"underline",marginBottom:3}}>Keluarga</p>
+              <p style={{...PP,fontSize:11,color:"#4A3520",lineHeight:1.6}}>Bpk. Hj. Jenal Abidin<br/>& Ibu Hj. Pupung Muflihat<br/>(Alm)</p>
+            </div>
+            <div>
+              <p style={{...PP,fontSize:10,color:"#9B7A3A",textDecoration:"underline",marginBottom:3}}>Keluarga</p>
+              <p style={{...PP,fontSize:11,color:"#4A3520",lineHeight:1.6}}>Bpk. Suparman<br/>& Ibu Maryati</p>
+            </div>
+          </div>
+          {divider}
+          <p style={{...PP,fontSize:11,color:"#9B7A3A"}}>Dibuat dengan ❤️ penuh kasih</p>
+        </div></Page>}
+
+      </div>
+
+      {/* Bottom Nav */}
+      <div style={{display:"flex",background:CREAM_DARK,borderTop:`1px solid ${GOLD_LIGHT}55`,boxShadow:"0 -4px 20px #00000015",zIndex:100,minHeight:62}}>
+        {vtabs.map(t=>{
+          const active=t.id===tab;
+          return (
+            <button key={t.id} onClick={()=>changeTab(t.id)} style={{
+              flex:1,border:"none",padding:"5px 3px",
+              background:active?GOLD_DARK:"transparent",
+              borderRadius:active?11:0,margin:active?"4px 2px":0,
+              cursor:"pointer",display:"flex",flexDirection:"column",
+              alignItems:"center",gap:2,transition:"all 0.25s ease"
+            }}>
+              <span style={{fontSize:14}}>{t.icon}</span>
+              <span style={{...PP,fontSize:9,fontWeight:active?700:400,color:active?"#fff":"#9B7A3A"}}>{t.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
