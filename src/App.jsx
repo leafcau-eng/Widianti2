@@ -360,6 +360,12 @@ function Page({children,direction,phase}) {
 }
 
 export default function App() {
+
+  const guestName = decodeURIComponent(
+    new URLSearchParams(window.location.search).get("to") ||
+    "Bapak/Ibu/Saudara/i"
+  );
+
   const [opened,setOpened]         = useState(false);
   const [coverPhase,setCoverPhase] = useState("hidden");
   const [tab,setTab]               = useState("opening");
@@ -530,7 +536,7 @@ const idx=tabOrder.indexOf(tab);
           <div style={{width:70,height:1,background:`linear-gradient(90deg,transparent,${GOLD},transparent)`,marginBottom:20,animation:"fadeIn 1s ease 1.8s both"}}/>
           <div style={{animation:"fadeUp 0.8s ease 2s both"}}>
             <p style={{...PP,fontSize:11,color:"#7A6040",marginBottom:3}}>Kepada Yth; Bapak/Ibu/Saudara/i</p>
-            <p style={{...PP,fontSize:15,color:GOLD_DARK,fontWeight:700,marginBottom:30}}>[Nama Tamu]</p>
+            <p style={{...PP,fontSize:15,color:GOLD_DARK,fontWeight:700,marginBottom:30}}>{guestName}</p>
             <button style={{...GB,fontSize:14,padding:"13px 38px",letterSpacing:1}} onClick={handleOpen}>Open Invitation</button>
           </div>
         </div>
@@ -554,7 +560,7 @@ const idx=tabOrder.indexOf(tab);
           <div style={{...SF,fontSize:54,lineHeight:1.05,marginBottom:22}}>Widianti</div>
           {divider}
           <p style={{...PP,fontSize:11,color:"#7A6040"}}>Kepada Yth; Bapak/Ibu/Saudara/i</p>
-          <p style={{...PP,fontSize:14,color:GOLD_DARK,fontWeight:700,marginTop:5}}>[Nama Tamu]</p>
+          <p style={{...PP,fontSize:14,color:GOLD_DARK,fontWeight:700,marginTop:5}}>{guestName}</p>
         </div></Page>}
 
         {displayTab==="quotes"&&<Page {...pp}><div style={{textAlign:"center"}}>

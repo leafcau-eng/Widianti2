@@ -279,14 +279,73 @@ function Countdown({target}) {
   );
 }
 
+
 function SlideTransition({children,direction,phase}) {
-  const s=phase==="idle"
-    ?{opacity:1,transform:"translateX(0) scale(1)",transition:"opacity 0.42s ease,transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94)"}
-    :phase==="enter"
-    ?{opacity:0,transform:direction>0?"translateX(55px) scale(0.96)":"translateX(-55px) scale(0.96)",transition:"none"}
-    :{opacity:0,transform:direction>0?"translateX(-55px) scale(0.96)":"translateX(55px) scale(0.96)",transition:"opacity 0.28s ease,transform 0.28s cubic-bezier(0.55,0.06,0.68,0.19)"};
-  return <div style={{width:"100%",...s}}>{children}</div>;
+
+  const s =
+    phase==="idle"
+      ?{
+          opacity:1,
+          transform:"perspective(2200px) rotateY(0deg)",
+          transformOrigin:"left center",
+          transition:"all .75s cubic-bezier(.22,1,.36,1)",
+          transformStyle:"preserve-3d",
+          filter:"drop-shadow(0 18px 35px rgba(0,0,0,.12))"
+        }
+
+      :phase==="enter"
+      ?{
+          opacity:0,
+          transform:
+            direction>0
+              ? "perspective(2200px) rotateY(75deg)"
+              : "perspective(2200px) rotateY(-75deg)",
+          transformOrigin:
+            direction>0
+              ? "left center"
+              : "right center",
+          transition:"none",
+          transformStyle:"preserve-3d"
+        }
+
+      :{
+          opacity:.15,
+          transform:
+            direction>0
+              ? "perspective(2200px) rotateY(-82deg)"
+              : "perspective(2200px) rotateY(82deg)",
+          transformOrigin:
+            direction>0
+              ? "left center"
+              : "right center",
+          transition:"all .55s ease",
+          transformStyle:"preserve-3d",
+          filter:"drop-shadow(0 28px 45px rgba(0,0,0,.22))"
+        };
+
+  return (
+    <div
+      style={{
+        width:"100%",
+        position:"relative",
+        ...s
+      }}
+    >
+      <div
+        style={{
+          position:"absolute",
+          inset:0,
+          pointerEvents:"none",
+          background:
+            "linear-gradient(90deg, rgba(0,0,0,.12), transparent 18%, transparent 82%, rgba(0,0,0,.08))",
+          mixBlendMode:"multiply"
+        }}
+      />
+      {children}
+    </div>
+  );
 }
+
 
 function Page({children,direction,phase}) {
   return (
@@ -310,6 +369,11 @@ export default function App() {
   const [comments,setComments]     = useState([{name:"Bagas",status:"Hadir",msg:"Semoga lancar dan barokah 🙏",time:"1 Jul 2026"}]);
   const [copied,setCopied]         = useState("");
   const transitioning              = useRef(false);
+
+const touchStartX = useRef(0);
+const touchStartY = useRef(0);
+
+  const touchStart = useRef({x:0,y:0});
 
   useEffect(() => {
     const audio = new Audio("/music/eight.mp3");
@@ -344,9 +408,77 @@ export default function App() {
     },280);
   };
 
-  const idx=tabOrder.indexOf(tab);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - endX;
+
+    if (Math.abs(diff) < 60) return;
+
+    const currentIndex = tabOrder.indexOf(tab);
+
+    if (diff > 0 && currentIndex < tabOrder.length - 1) {
+      changeTab(tabOrder[currentIndex + 1]);
+    }
+
+    if (diff < 0 && currentIndex > 0) {
+      changeTab(tabOrder[currentIndex - 1]);
+    }
+  };
+
+
+  
+  const goNext=()=>{
+    const i=tabOrder.indexOf(tab);
+    if(i<tabOrder.length-1) changeTab(tabOrder[i+1]);
+  };
+
+  const goPrev=()=>{
+    const i=tabOrder.indexOf(tab);
+    if(i>0) changeTab(tabOrder[i-1]);
+  };
+
+  const onTouchStart=(e)=>{
+    touchStart.current={
+      x:e.touches[0].clientX,
+      y:e.touches[0].clientY
+    };
+  };
+
+  const onTouchEnd=(e)=>{
+    const dx=e.changedTouches[0].clientX-touchStart.current.x;
+    const dy=e.changedTouches[0].clientY-touchStart.current.y;
+
+    if(Math.abs(dx)>Math.abs(dy)){
+      if(dx<-50) goNext();
+      if(dx>50) goPrev();
+    }else{
+      if(dy<-50) goNext();
+      if(dy>50) goPrev();
+    }
+  };
+
+const idx=tabOrder.indexOf(tab);
   const vs=Math.max(0,Math.min(idx-2,TABS.length-5));
   const vtabs=TABS.slice(vs,vs+5);
+
+  const nextTab=()=>{
+    const i=tabOrder.indexOf(tab);
+    if(i<TABS.length-1){
+      changeTab(tabOrder[i+1]);
+    }
+  };
+
+  const prevTab=()=>{
+    const i=tabOrder.indexOf(tab);
+    if(i>0){
+      changeTab(tabOrder[i-1]);
+    }
+  };
   const divider=<div style={{width:44,height:1,background:GOLD_LIGHT,margin:"13px auto"}}/>;
   const copy=(txt,k)=>{navigator.clipboard.writeText(txt).catch(()=>{});setCopied(k);setTimeout(()=>setCopied(""),2000);};
   const pp={direction,phase};
@@ -359,10 +491,14 @@ export default function App() {
 
   // TURUT MENGUNDANG DATA
   const turutPria = [
-    "Keluarga Besar Bpk. Hj. Jenal Abidin",
-    "Rekan-rekan di Purwakarta",
-    "Seluruh Kerabat & Tetangga Purwakarta",
-  ];
+      "Keluarga Besar Bpk. Hj. Jenal Abidin",
+      "Hj. Mansyur",
+      "Ust. Asep",
+      "Ust. Abdul Muhaemin",
+      "Aa Anan",
+      "Keluarga Besar Hj. Tajudin (Sukahaji)",
+      "Keluarga Besar Hj. Abdul Rosyid (Ciganea)",
+    ];
   const turutWanita = [
     "Ust. Abah Kiki Wijana",
     "Ust. Asep",
@@ -394,7 +530,7 @@ export default function App() {
           <div style={{width:70,height:1,background:`linear-gradient(90deg,transparent,${GOLD},transparent)`,marginBottom:20,animation:"fadeIn 1s ease 1.8s both"}}/>
           <div style={{animation:"fadeUp 0.8s ease 2s both"}}>
             <p style={{...PP,fontSize:11,color:"#7A6040",marginBottom:3}}>Kepada Yth; Bapak/Ibu/Saudara/i</p>
-            <p style={{...PP,fontSize:15,color:GOLD_DARK,fontWeight:700,marginBottom:30}}>[Nama Tamu]</p>
+            <p style={{...PP,fontSize:15,color:GOLD_DARK,fontWeight:700,marginBottom:30}}>{guestName}</p>
             <button style={{...GB,fontSize:14,padding:"13px 38px",letterSpacing:1}} onClick={handleOpen}>Open Invitation</button>
           </div>
         </div>
@@ -403,7 +539,11 @@ export default function App() {
   }
 
   return (
-    <div style={{width:"100%",maxWidth:420,margin:"0 auto",height:"100vh",display:"flex",flexDirection:"column",background:CREAM,overflow:"hidden"}}>
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      style={{width:"100%",maxWidth:420,margin:"0 auto",height:"100vh",display:"flex",flexDirection:"column",background:CREAM,overflow:"hidden"}}
+    >
       <style>{CSS}</style>
       <div style={{flex:1,overflowY:"auto",overflowX:"hidden"}}>
 
@@ -414,7 +554,7 @@ export default function App() {
           <div style={{...SF,fontSize:54,lineHeight:1.05,marginBottom:22}}>Widianti</div>
           {divider}
           <p style={{...PP,fontSize:11,color:"#7A6040"}}>Kepada Yth; Bapak/Ibu/Saudara/i</p>
-          <p style={{...PP,fontSize:14,color:GOLD_DARK,fontWeight:700,marginTop:5}}>[Nama Tamu]</p>
+          <p style={{...PP,fontSize:14,color:GOLD_DARK,fontWeight:700,marginTop:5}}>{guestName}</p>
         </div></Page>}
 
         {displayTab==="quotes"&&<Page {...pp}><div style={{textAlign:"center"}}>
