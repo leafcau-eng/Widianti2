@@ -310,6 +310,7 @@ export default function App() {
   const [comments,setComments]     = useState([{name:"Bagas",status:"Hadir",msg:"Semoga lancar dan barokah 🙏",time:"1 Jul 2026"}]);
   const [copied,setCopied]         = useState("");
   const transitioning              = useRef(false);
+  const touchStart = useRef({x:0,y:0});
 
   useEffect(() => {
     const audio = new Audio("/music/eight.mp3");
@@ -368,7 +369,38 @@ export default function App() {
   };
 
 
-  const idx=tabOrder.indexOf(tab);
+  
+  const goNext=()=>{
+    const i=tabOrder.indexOf(tab);
+    if(i<tabOrder.length-1) changeTab(tabOrder[i+1]);
+  };
+
+  const goPrev=()=>{
+    const i=tabOrder.indexOf(tab);
+    if(i>0) changeTab(tabOrder[i-1]);
+  };
+
+  const onTouchStart=(e)=>{
+    touchStart.current={
+      x:e.touches[0].clientX,
+      y:e.touches[0].clientY
+    };
+  };
+
+  const onTouchEnd=(e)=>{
+    const dx=e.changedTouches[0].clientX-touchStart.current.x;
+    const dy=e.changedTouches[0].clientY-touchStart.current.y;
+
+    if(Math.abs(dx)>Math.abs(dy)){
+      if(dx<-50) goNext();
+      if(dx>50) goPrev();
+    }else{
+      if(dy<-50) goNext();
+      if(dy>50) goPrev();
+    }
+  };
+
+const idx=tabOrder.indexOf(tab);
   const vs=Math.max(0,Math.min(idx-2,TABS.length-5));
   const vtabs=TABS.slice(vs,vs+5);
   const divider=<div style={{width:44,height:1,background:GOLD_LIGHT,margin:"13px auto"}}/>;
@@ -383,14 +415,14 @@ export default function App() {
 
   // TURUT MENGUNDANG DATA
   const turutPria = [
-  "Keluarga Besar Bpk. Hj. Jenal Abidin",
-  "Hj. Mansyur (Uwa)",
-  "Ust. Asep (Mamang)",
-  "Ust. Abdul Muhaemin (Raka)",
-  "Aa Anan (Raka)",
-  "Keluarga Besar Hj. Tajudin (Sukahaji)",
-  "Keluarga Besar Hj. Abdul Rosyid (Ciganea)",
-];
+      "Keluarga Besar Bpk. Hj. Jenal Abidin",
+      "Hj. Mansyur",
+      "Ust. Asep",
+      "Ust. Abdul Muhaemin",
+      "Aa Anan",
+      "Keluarga Besar Hj. Tajudin (Sukahaji)",
+      "Keluarga Besar Hj. Abdul Rosyid (Ciganea)",
+    ];
   const turutWanita = [
     "Ust. Abah Kiki Wijana",
     "Ust. Asep",
