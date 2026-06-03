@@ -383,10 +383,14 @@ export default function App() {
 
   // TURUT MENGUNDANG DATA
   const turutPria = [
-    "Keluarga Besar Bpk. Hj. Jenal Abidin",
-    "Rekan-rekan di Purwakarta",
-    "Seluruh Kerabat & Tetangga Purwakarta",
-  ];
+  "Keluarga Besar Bpk. Hj. Jenal Abidin",
+  "Hj. Mansyur (Uwa)",
+  "Ust. Asep (Mamang)",
+  "Ust. Abdul Muhaemin (Raka)",
+  "Aa Anan (Raka)",
+  "Keluarga Besar Hj. Tajudin (Sukahaji)",
+  "Keluarga Besar Hj. Abdul Rosyid (Ciganea)",
+];
   const turutWanita = [
     "Ust. Abah Kiki Wijana",
     "Ust. Asep",
