@@ -344,6 +344,30 @@ export default function App() {
     },280);
   };
 
+  const touchStartX = useRef(0);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - endX;
+
+    if (Math.abs(diff) < 60) return;
+
+    const currentIndex = tabOrder.indexOf(tab);
+
+    if (diff > 0 && currentIndex < tabOrder.length - 1) {
+      changeTab(tabOrder[currentIndex + 1]);
+    }
+
+    if (diff < 0 && currentIndex > 0) {
+      changeTab(tabOrder[currentIndex - 1]);
+    }
+  };
+
+
   const idx=tabOrder.indexOf(tab);
   const vs=Math.max(0,Math.min(idx-2,TABS.length-5));
   const vtabs=TABS.slice(vs,vs+5);
@@ -403,7 +427,11 @@ export default function App() {
   }
 
   return (
-    <div style={{width:"100%",maxWidth:420,margin:"0 auto",height:"100vh",display:"flex",flexDirection:"column",background:CREAM,overflow:"hidden"}}>
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      style={{width:"100%",maxWidth:420,margin:"0 auto",height:"100vh",display:"flex",flexDirection:"column",background:CREAM,overflow:"hidden"}}
+    >
       <style>{CSS}</style>
       <div style={{flex:1,overflowY:"auto",overflowX:"hidden"}}>
 
