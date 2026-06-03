@@ -460,11 +460,11 @@ export default function App() {
           </p>
 
           {/* WA Button utama */}
-          <button onClick={()=>openWA("Assalamu'alaikum, saya konfirmasi kehadiran untuk pernikahan Balhaz & Widianti pada Kamis, 2 Juli 2026.
+          <button onClick={()=>openWA(`Assalamu'alaikum, saya konfirmasi kehadiran untuk pernikahan Balhaz & Widianti pada Kamis, 2 Juli 2026.
 
 Nama: 
 Jumlah Hadir: 
-Ucapan: ")}
+Ucapan: `)}
             style={{
               display:"flex",alignItems:"center",justifyContent:"center",gap:10,
               width:"100%",padding:"14px 20px",
@@ -483,19 +483,19 @@ Ucapan: ")}
 
           {/* Quick action buttons */}
           <div style={{display:"flex",gap:8,marginBottom:20}}>
-            <button onClick={()=>openWA("Assalamu'alaikum, saya *Hadir* di pernikahan Balhaz & Widianti 2 Juli 2026 🎉
+            <button onClick={()=>openWA(`Assalamu'alaikum, saya *Hadir* di pernikahan Balhaz & Widianti 2 Juli 2026 🎉
 
 Nama: 
-Jumlah tamu: ")}
+Jumlah tamu: `)}
               style={{
                 flex:1,padding:"10px 8px",border:`1.5px solid ${GOLD_LIGHT}`,
                 borderRadius:12,background:"#FFFDF8",cursor:"pointer",
                 fontFamily:"'Poppins',sans-serif",fontSize:11,fontWeight:600,color:GOLD_DARK
               }}>✅ Hadir</button>
-            <button onClick={()=>openWA("Assalamu'alaikum, mohon maaf saya *Tidak Bisa Hadir* di pernikahan Balhaz & Widianti 2 Juli 2026 🙏
+            <button onClick={()=>openWA(`Assalamu'alaikum, mohon maaf saya *Tidak Bisa Hadir* di pernikahan Balhaz & Widianti 2 Juli 2026 🙏
 
 Nama: 
-Ucapan: ")}
+Ucapan: `)}
               style={{
                 flex:1,padding:"10px 8px",border:`1.5px solid ${GOLD_LIGHT}`,
                 borderRadius:12,background:"#FFFDF8",cursor:"pointer",
