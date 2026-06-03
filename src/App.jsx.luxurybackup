@@ -279,73 +279,36 @@ function Countdown({target}) {
   );
 }
 
-
 function SlideTransition({children,direction,phase}) {
-
-  const s =
+  const s=
     phase==="idle"
       ?{
           opacity:1,
-          transform:"perspective(2200px) rotateY(0deg)",
-          transformOrigin:"left center",
-          transition:"all .75s cubic-bezier(.22,1,.36,1)",
+          transform:"perspective(1400px) rotateY(0deg) translateX(0)",
+          transition:"all .55s cubic-bezier(.22,1,.36,1)",
           transformStyle:"preserve-3d",
-          filter:"drop-shadow(0 18px 35px rgba(0,0,0,.12))"
+          boxShadow:"0 10px 40px rgba(0,0,0,.10)"
         }
-
       :phase==="enter"
       ?{
           opacity:0,
-          transform:
-            direction>0
-              ? "perspective(2200px) rotateY(75deg)"
-              : "perspective(2200px) rotateY(-75deg)",
-          transformOrigin:
-            direction>0
-              ? "left center"
-              : "right center",
+          transform:direction>0
+            ?"perspective(1400px) rotateY(55deg) translateX(120px)"
+            :"perspective(1400px) rotateY(-55deg) translateX(-120px)",
           transition:"none",
           transformStyle:"preserve-3d"
         }
-
       :{
-          opacity:.15,
-          transform:
-            direction>0
-              ? "perspective(2200px) rotateY(-82deg)"
-              : "perspective(2200px) rotateY(82deg)",
-          transformOrigin:
-            direction>0
-              ? "left center"
-              : "right center",
-          transition:"all .55s ease",
-          transformStyle:"preserve-3d",
-          filter:"drop-shadow(0 28px 45px rgba(0,0,0,.22))"
+          opacity:0,
+          transform:direction>0
+            ?"perspective(1400px) rotateY(-55deg) translateX(-120px)"
+            :"perspective(1400px) rotateY(55deg) translateX(120px)",
+          transition:"all .35s ease",
+          transformStyle:"preserve-3d"
         };
 
-  return (
-    <div
-      style={{
-        width:"100%",
-        position:"relative",
-        ...s
-      }}
-    >
-      <div
-        style={{
-          position:"absolute",
-          inset:0,
-          pointerEvents:"none",
-          background:
-            "linear-gradient(90deg, rgba(0,0,0,.12), transparent 18%, transparent 82%, rgba(0,0,0,.08))",
-          mixBlendMode:"multiply"
-        }}
-      />
-      {children}
-    </div>
-  );
+  return <div style={{width:"100%",...s}}>{children}</div>;
 }
-
 
 function Page({children,direction,phase}) {
   return (
@@ -369,10 +332,6 @@ export default function App() {
   const [comments,setComments]     = useState([{name:"Bagas",status:"Hadir",msg:"Semoga lancar dan barokah 🙏",time:"1 Jul 2026"}]);
   const [copied,setCopied]         = useState("");
   const transitioning              = useRef(false);
-
-const touchStartX = useRef(0);
-const touchStartY = useRef(0);
-
   const touchStart = useRef({x:0,y:0});
 
   useEffect(() => {
@@ -408,6 +367,7 @@ const touchStartY = useRef(0);
     },280);
   };
 
+  const touchStartX = useRef(0);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -465,20 +425,6 @@ const touchStartY = useRef(0);
 const idx=tabOrder.indexOf(tab);
   const vs=Math.max(0,Math.min(idx-2,TABS.length-5));
   const vtabs=TABS.slice(vs,vs+5);
-
-  const nextTab=()=>{
-    const i=tabOrder.indexOf(tab);
-    if(i<TABS.length-1){
-      changeTab(tabOrder[i+1]);
-    }
-  };
-
-  const prevTab=()=>{
-    const i=tabOrder.indexOf(tab);
-    if(i>0){
-      changeTab(tabOrder[i-1]);
-    }
-  };
   const divider=<div style={{width:44,height:1,background:GOLD_LIGHT,margin:"13px auto"}}/>;
   const copy=(txt,k)=>{navigator.clipboard.writeText(txt).catch(()=>{});setCopied(k);setTimeout(()=>setCopied(""),2000);};
   const pp={direction,phase};

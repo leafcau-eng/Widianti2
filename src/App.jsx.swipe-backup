@@ -369,10 +369,6 @@ export default function App() {
   const [comments,setComments]     = useState([{name:"Bagas",status:"Hadir",msg:"Semoga lancar dan barokah 🙏",time:"1 Jul 2026"}]);
   const [copied,setCopied]         = useState("");
   const transitioning              = useRef(false);
-
-const touchStartX = useRef(0);
-const touchStartY = useRef(0);
-
   const touchStart = useRef({x:0,y:0});
 
   useEffect(() => {
@@ -408,6 +404,7 @@ const touchStartY = useRef(0);
     },280);
   };
 
+  const touchStartX = useRef(0);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -465,20 +462,6 @@ const touchStartY = useRef(0);
 const idx=tabOrder.indexOf(tab);
   const vs=Math.max(0,Math.min(idx-2,TABS.length-5));
   const vtabs=TABS.slice(vs,vs+5);
-
-  const nextTab=()=>{
-    const i=tabOrder.indexOf(tab);
-    if(i<TABS.length-1){
-      changeTab(tabOrder[i+1]);
-    }
-  };
-
-  const prevTab=()=>{
-    const i=tabOrder.indexOf(tab);
-    if(i>0){
-      changeTab(tabOrder[i-1]);
-    }
-  };
   const divider=<div style={{width:44,height:1,background:GOLD_LIGHT,margin:"13px auto"}}/>;
   const copy=(txt,k)=>{navigator.clipboard.writeText(txt).catch(()=>{});setCopied(k);setTimeout(()=>setCopied(""),2000);};
   const pp={direction,phase};
